@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analise de Dados Covid</title>
+
+    
+</head><br>
+
+<body class="bg-secondary bg-gradient text-white container">
+    <h1 href="#fim" id="topo" class="mt-5">
+        Dados para análise COVID
+    </h1>
+
+    <p>DataSet COVID</p>
+
+    
+    <a class="text-white" href="\">Voltar para a Home</a><br>
+
+    <br>
+    <a class="text-white" href="\brasil">Voltar Brasil</a><br>
+
+    <br>
+
+    <img class="my-5"  src="../static/images/brasil/AL.png" alt="Gráfico">
+    <img class="my-5"  src="../static/images/brasil/AL2.png" alt="Gráfico">
+    <img class="my-5"  src="../static/images/brasil/AL3.png" alt="Gráfico"><br><br>
+    <br>
+
+    <div>
+        {{ df[df['estado']=='AL'].groupby(['mes']).max().to_html(classes=('table table-success table-striped')) | safe }}
+    </div>
+
+    <a href="#topo" id="#fim" class="text-white">Topo</a>
+
+</body>
+</html>

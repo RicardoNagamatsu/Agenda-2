@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid Dataset</title>
+    
+    <style type="text/css"> 
+        .chart{
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 href="#fim" id="topo" class="mt-5" >Covid Dataset</h1>
+
+    <a href="/">Pesquisa</a>
+    <a href="/resumo">Resumo</a>
+    
+
+    <h2>Top 10 - Últimos dados</h2>
+    <h3>Países com maior número de casos confirmados</h3>
+    <div>
+        {{ df.loc[df['Confirmed'].sort_values(ascending=False).head(10).index][['Date','Country/Region','Confirmed']].reset_index(drop=True).to_html() | safe }}        
+    </div>
+
+    <h3>Países com maior número de casos confirmados por 1M habitantes</h3>
+    <div>
+        {{ df.loc[df['Confirmed / 1M Pop'].sort_values(ascending=False).head(10).index, ['Date', 'Country/Region', 'Confirmed / 1M Pop']].reset_index(drop=True).to_html() | safe }}        
+    </div>    
+
+    <h3>Países com maior número de mortes</h3>
+    <div>
+        {{ df.loc[df['Deaths'].sort_values(ascending=False).head(10).index][['Date','Country/Region','Deaths']].reset_index(drop=True).to_html() | safe }}        
+    </div>
+
+    <h3>Países com maior número de mortes por 1M habitantes</h3>
+    <div>
+        {{ df.loc[df['Deaths / 1M Pop'].sort_values(ascending=False).head(10).index][['Date','Country/Region','Deaths / 1M Pop']].reset_index(drop=True).to_html() | safe }}        
+    </div>
+
+    <h3>Países com maior número de casos ativos</h3>
+    <div>
+        {{ df.loc[df['Active'].sort_values(ascending=False).head(10).index][['Date','Country/Region','Active']].reset_index(drop=True).to_html() | safe }}        
+    </div>
+
+    <h3>Países com maior número de casos ativos por 1M habitantes</h3>
+    <div>
+        {{ df.loc[df['Active / 1M Pop'].sort_values(ascending=False).head(10).index][['Date','Country/Region','Active / 1M Pop']].reset_index(drop=True).to_html() | safe }}        
+    </div>
+
+    <h3>Países com maior mortalidade</h3>
+    <div>
+        {{ df.loc[df['Mortality'].sort_values(ascending=False).head(10).index][['Date','Country/Region','Mortality']].reset_index(drop=True).to_html() | safe }}        
+    </div><br>
+
+    <img class="my-5"  src="../static/images/densidade.png" alt="Gráfico" title="Gráfico de Casos / Densidade">
+    <img class="my-5"  src="../static/images/faixa_etaria.png" alt="Gráfico" title="Gráfico de Casos / Faixa Etária"><br>
+    <div id="confirmed" class="chart">
+    </div><br>
+    
+    <a href="#topo" id="#fim">Topo</a>
+</body>
+
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+    <!-- Import Plotly (does not have to be from CDN) -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script type="text/javascript">
+        
+        var graphs = {{confirmedJSON | safe}};
+       
+        Plotly.plot('confirmed',graphs,{});        
+
+    </script>
+
+</html>

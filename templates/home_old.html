@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid Dataset</title>
+</head>
+
+<body>
+    <h1>Covid Dataset</h1>
+
+    <a href="/">Pesquisa</a>
+    <a href="/resumo">Resumo</a>
+    <a href="/dashboard">Dashboard</a>
+    
+    <br>
+    <form action = "/pesquisa" method = "post">
+        <p>Agrupamento por 'Country/Region' ou 'Province/State':</p>
+        <input type = "text" name = "agrupamento" />
+        <p>Agrupamento por 'semana' ou 'mês':</p>
+        <input type = "text" name = "periodo" />
+        <p>Filtro por país ou região:</p>
+        <p><input type = "text" name = "filtro" /></p>
+        <p>Data Inicial 'aaaa-mm-dd':</p>
+        <p><input type = "text" name = "inicio" /></p>
+        <p>Data Final 'aaaa-mm-dd':</p>
+        <p><input type = "text" name = "final" /></p>
+        <p><input type = "submit" value = "submit" /></p>
+     </form>
+    <br>
+
+    <div>
+        {{ df.to_html() | safe }}
+    </div>
+
+</body>
+</html>

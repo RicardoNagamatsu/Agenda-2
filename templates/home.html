@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid Dataset</title>
+
+    <style type="text/css"> 
+        .chart{
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="bg-secondary bg-gradient text-white container">
+    <h1  href="#fim" id="topo" class="mt-5" >Covid Dataset</h1>
+
+    <a href="/">Pesquisa</a>
+    <a href="/resumo">Resumo</a>
+    <a class="text-white" href="\brasil">Dados Covid Brasil</a><br>
+    <!--<a href="/dashboard">Dashboard</a>-->
+    
+    
+    <br>
+    <form action="/pesquisa" method="post">
+        <p>Agrupamento por 'Country/Region' ou 'Province/State':</p>
+        <select name="agrupamento" id= "agrupamento">
+            <option value=''></option>
+            <option value="Country/Region">Country/Region</option>
+            <option value="Province/State">Province/State</option>
+        </select>
+        <p>Agrupamento por 'semana' ou 'mês':</p>
+        <select name="periodo" id= "periodo">
+            <option value=''></option>
+            <option value="semana">Semana</option>
+            <option value="mês">Mes</option>
+        </select>
+        <p>Filtro por país ou região:</p>
+        <p><input type="text" name="filtro" /></p>
+        <p>Data Inicial 'aaaa-mm-dd':</p>
+        <p><input type="text" name="inicio" /></p>
+        <p>Data Final 'aaaa-mm-dd':</p>
+        <p><input type="text" name="final" /></p>
+        <p><input type="submit" value="submit" /></p>
+     </form>
+    <br>
+
+    <div id="confirmed" class="chart">
+    </div>
+    
+    <div>
+        {{ df.to_html() | safe }}
+    </div>
+
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+    <!-- Import Plotly (does not have to be from CDN) -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script type="text/javascript">
+        
+        var graphs = {{plot_json | safe}};
+       
+        Plotly.plot('confirmed',graphs,{});        
+
+    </script>
+<a class="text-white" href="https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv" target="blank"> 
+    Fonte dos dados: Johns Hopkins University </a><br><br>
+
+    <a href="#topo" id="#fim">Topo</a>
+</body>
+
+</html>
